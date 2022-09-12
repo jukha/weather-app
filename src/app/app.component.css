@@ -1,0 +1,11 @@
+.today-weather {
+  min-height: 50.625rem;
+  padding: 0.688rem 1.125rem;
+}
+
+.search-btn {
+  padding: 0.688rem 1.125rem;
+  text-decoration: none;
+  display: inline-block;
+  font-family: var(--ff-primary);
+}

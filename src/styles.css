@@ -180,3 +180,11 @@ select {
 .cp {
   cursor: pointer;
 }
+
+.form-control {
+  width: 100%;
+}
+
+.position-relative {
+  position: relative;
+}

@@ -1,22 +1,114 @@
 .nav {
   min-height: 100vh;
   width: 100%;
+  padding: 4.75rem 0.75rem;
   position: absolute;
   top: 0;
-  transform: translateY(-800px);
+  transform: translateX(-800px);
   background-color: var(--clr-primary-800);
   z-index: 1000;
-  transition: all 500ms ease-in-out;
+  transition: all 300ms ease-out;
 }
 
-.nav i.fa-times {
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fa-search {
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px; */
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.search-form> :first-child {
+  flex-grow: 1;
+}
+
+.search-box {
+  border: 1px solid var(--clr-neutral-100);
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 0.938rem;
+  gap: 1rem;
+}
+
+.search-box .form-control {
+  background-color: transparent;
+  border: none;
+  font-family: var(--ff-primary);
+  font-size: var(--fs-400);
+  line-height: 1.188rem;
+  color: var(--clr-neutral-300);
+  font-weight: var(--fw-medium);
+}
+
+.search-box .form-control:focus {
+  outline: none;
+}
+
+.btn {
+  padding: 0.875rem 0.938rem;
+}
+
+input[type="submit"] {
+  background-color: var(--clr-accent-500);
+  color: var(--clr-neutral-100);
+  border: 1px solid var(--clr-accent-500);
+  cursor: pointer;
+
+}
+
+.close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
+  font-size: 25px;
+  cursor: pointer;
 }
 
-.pull-down {
-  transform: translateY(0);
+.suggestions-box {
+  padding-top: 2.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.125rem;
+}
+
+.suggested-city {
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-400);
+  color: var(--clr-neutral-100);
+  line-height: 1.174rem;
+  padding: 1.438rem 0.75rem;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.suggested-city .fa-angle-right {
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+  color: var(--clr-neutral-300);
+  opacity: 0;
+}
+
+.suggested-city:hover {
+  border-color: var(--clr-neutral-300);
+}
+
+.suggested-city:hover .fa-angle-right {
+  opacity: 1;
+}
+
+.show {
+  transform: translateX(0);
 }
 
 .today-weather-wrapper {
@@ -120,8 +212,8 @@
 
 .location__name {
   color: var(--clr-neutral-300);
-  font-size: (--fs-500);
-  font-weight: var(--fw-medium);
+  font-size: var(--fs-500);
+  font-weight: var(--fw-bold);
 }
 
 .location__name i {

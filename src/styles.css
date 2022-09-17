@@ -1,29 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;0,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
 @import '~font-awesome/css/font-awesome.css';
 
 :root {
   --clr-primary-900: #100E1D;
   --clr-primary-800: #1E213A;
 
+
+
   --clr-accent-500: #3C47E9;
+  --clr-accent-600: #110E3C;
 
   --clr-neutral-100: #E7E7EB;
   --clr-neutral-200: #A09FB1;
   --clr-neutral-300: #6E707A;
 
   --ff-primary: 'Raleway', sans-serif;
+  --ff-secondary: 'Montserrat', sans-serif;
 
   --fw-medium: 500;
   --fw-semi-bold: 600;
   --fw-bold: 700;
 
+  --fs-300: 0.875rem;
   --fs-400: 1rem;
   --fs-500: 1.125rem;
   --fs-600: 1.5rem;
   --fs-700: 2.25rem;
   --fs-800: 3rem;
-  --fs-850:4rem;
+  --fs-850: 4rem;
   --fs-900: 9rem;
 
 
@@ -128,6 +134,10 @@ select {
   color: var(--clr-neutral-300)
 }
 
+.text-accent-600 {
+  color: var(--clr-accent-600);
+}
+
 .bg-primary-900 {
   background-color: var(--clr-primary-900);
 }
@@ -188,4 +198,12 @@ select {
 
 .position-relative {
   position: relative;
+}
+
+
+@media (min-width:48em) {
+  .my-md-80 {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
 }

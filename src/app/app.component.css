@@ -243,6 +243,7 @@ input[type="submit"] {
 }
 
 .temp-btn {
+  padding: 0;
   margin-top: 2.5rem;
   border: none;
   font-family: var(--ff-primary);

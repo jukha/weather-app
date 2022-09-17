@@ -412,6 +412,11 @@ footer {
   .today-weather-wrapper {
     min-width: 28.688rem;
     padding: 2.625rem;
+    background-position: top 7.5rem center;
+  }
+
+  .today-weather-stats {
+    padding-top: 6.25rem;
   }
 
   .detailed-weather {

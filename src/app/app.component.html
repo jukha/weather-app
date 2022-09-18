@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="tempData">
   <nav class="nav" [class.show]="showSearchMenu">
     <i class="fa fa-times text-neutral-100 close-btn" aria-hidden="true" (click)="showSearchMenu = false"></i>
     <form class="search-form">
@@ -26,13 +26,14 @@
     <div class="filter flex jc-sb ai-c">
       <a class="search-btn bg-neutral-300 text-neutral-100 cp" (click)="showSearchMenu = true">Seach for
         places</a>
-      <a href="#" class="location-marker">
+      <a href="javascript:void(0)" class="location-marker" (click)="getCurrentCoords()">
         <i class="fa fa-compass text-neutral-100" aria-hidden="true"></i>
       </a>
     </div>
     <div class="today-weather-stats flex flex-column ai-c">
       <img src="assets/img/Shower.png" class="curr-weather-icon">
-      <h1 class="temp-value my-15 my-md-80">15 <span>°C</span> </h1>
+      <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(tempData.main.temp)}}<span> °F</span> </h1>
+      <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'c'">{{kelvinToCels(tempData.main.temp)}}<span> °C</span> </h1>
       <p class="weather-name my-15 my-md-80">Shower</p>
       <div class="weather-time flex jc-sb ai-c my-30">
         <span class="day">Today</span>
@@ -40,7 +41,7 @@
       </div>
       <p class="location__name">
         <i class="fa fa-map-marker text-neutral-200" aria-hidden="true"></i>
-        Attock
+        {{tempData.name}}
       </p>
     </div>
   </article>
@@ -48,10 +49,10 @@
 
     <div class="detailed-weather-content position-relative">
       <div class="convert-temp-btns">
-        <button class="temp-btn bg-neutral-100 text-accent-600">
+        <button class="temp-btn bg-neutral-100 text-accent-600" (click)="currTempUnit='c'" >
           °C
         </button>
-        <button class="temp-btn bg-neutral-300 text-neutral-100">
+        <button class="temp-btn bg-neutral-300 text-neutral-100" (click)="currTempUnit='f'">
           °F
         </button>
       </div>

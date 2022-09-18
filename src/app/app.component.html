@@ -31,10 +31,10 @@
       </a>
     </div>
     <div class="today-weather-stats flex flex-column ai-c">
-      <img src="assets/img/Shower.png" class="curr-weather-icon">
+      <img src="{{currTempImage}}" class="curr-weather-icon" />
       <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(tempData.main.temp)}}<span> °F</span> </h1>
       <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'c'">{{kelvinToCels(tempData.main.temp)}}<span> °C</span> </h1>
-      <p class="weather-name my-15 my-md-80">Shower</p>
+      <p class="weather-name my-15 my-md-80">{{currTempName}}</p>
       <div class="weather-time flex jc-sb ai-c my-30">
         <span class="day">Today</span>
         <span class="date">Fri, 5 Jun</span>

@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
   tempData?: WeatherModel;
 
   currTempUnit = 'c';
+  currTempImage:any;
+  currTempName:any;
 
   constructor(private backendService: GetTempDataService) {}
 
@@ -33,6 +35,12 @@ export class AppComponent implements OnInit {
     }
   }
 
+  replaceString(str: string): string {
+    const index = 2;
+    const replacement = 'd';
+    const res = str.substring(0, index) + replacement + str.substring(index + 1);
+    return res;
+  }
   getData() {
     this.backendService
       .getData(
@@ -42,6 +50,9 @@ export class AppComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.tempData = data;
+        let tempImg = this.replaceString(data?.weather[0]?.icon);
+        this.currTempImage = `http://openweathermap.org/img/wn/${tempImg}@2x.png`;
+        this.currTempName = data?.weather[0]?.main;
       });
   }
 

@@ -20,10 +20,13 @@ export class AppComponent implements OnInit {
   tempData?: WeatherModel;
 
   currTempUnit = 'c';
-  currTempImage:any;
-  currTempName:any;
+  currTempImage: any;
+  currTempName: any;
 
-  constructor(private backendService: GetTempDataService) {}
+  visibility: any;
+  dateInfo: any;
+
+  constructor(private backendService: GetTempDataService) { }
 
   ngOnInit() {
     if (localStorage.getItem('hasAllowed')) {
@@ -33,7 +36,21 @@ export class AppComponent implements OnInit {
         this.getCurrentCoords();
       }, 3000);
     }
+    this.getDateInfo();
   }
+
+  getDateInfo() {
+    const now = new Date();
+    let day = now.getDate();
+    let weekDay = now.toLocaleDateString('default', { weekday: 'short' })
+    let month = now.toLocaleString('default', { month: 'short' });
+    this.dateInfo = [{
+      'day': weekDay,
+      'date': day,
+      'month': month,
+    }]
+  }
+
 
   replaceString(str: string): string {
     const index = 2;
@@ -53,6 +70,7 @@ export class AppComponent implements OnInit {
         let tempImg = this.replaceString(data?.weather[0]?.icon);
         this.currTempImage = `http://openweathermap.org/img/wn/${tempImg}@2x.png`;
         this.currTempName = data?.weather[0]?.main;
+        this.visibility = Math.round(data?.visibility * 0.000621371192);
       });
   }
 
@@ -78,12 +96,12 @@ export class AppComponent implements OnInit {
   //   let cToFhr = (cTemp * 9) / 5 + 32;
   //   return cToFhr;
   // }
-  kelvinToFahren(kelvin:number):number {
+  kelvinToFahren(kelvin: number): number {
     let kTemp = kelvin;
-    let kToFahr = (kTemp - 273.15) * 9/5 + 32;
+    let kToFahr = (kTemp - 273.15) * 9 / 5 + 32;
     return Number(Math.round(kToFahr));
   }
-  kelvinToCels(kelvin:number):number{
+  kelvinToCels(kelvin: number): number {
     let kTemp = kelvin;
     let kToCels = kTemp - 273.15;
     return Number(Math.round(kToCels));

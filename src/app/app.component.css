@@ -392,6 +392,41 @@ footer {
   bottom: 1.5rem;
 }
 
+.bar-parent{
+  height: 8px;
+  width:229px;
+  background: var(--clr-neutral-100);
+  border-radius: 5rem;
+  margin:2rem auto 0;
+  position: relative;
+}
+.bar-marker{
+  font-size: var(--fs-250);
+  color:var(--clr-neutral-200);
+  font-weight:var(--fw-bold);
+  position: absolute;
+  top:-20px;
+}
+.bar-marker:first-child{
+  
+  left:0;
+}
+.bar-marker:nth-child(2){
+  
+  left:50%;
+  transform: translateX(-50%);
+}
+.bar-marker:nth-child(3){
+  
+  right:0;
+}
+.bar-inner{
+  background-color: #FFEC65;
+  display: inline-block;
+  height: inherit;
+  border-radius: inherit;
+}
+
 /* ================== */
 /* Media Queries */
 /* ================== */

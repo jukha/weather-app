@@ -25,7 +25,7 @@ main {
   font-size: var(--fs-600);
 }
 
-.search-form> :first-child {
+.search-form > :first-child {
   flex-grow: 1;
 }
 
@@ -60,7 +60,6 @@ input[type="submit"] {
   color: var(--clr-neutral-100);
   border: 1px solid var(--clr-accent-500);
   cursor: pointer;
-
 }
 
 .close-btn {
@@ -119,7 +118,7 @@ input[type="submit"] {
   min-height: 50.625rem;
   padding: 0.688rem 1.125rem;
 
-  background: var(--clr-primary-800) url('../assets/img/Cloud-background.png');
+  background: var(--clr-primary-800) url("../assets/img/Cloud-background.png");
   background-repeat: no-repeat;
   background-position: top 3.125rem center;
   position: relative;
@@ -132,7 +131,7 @@ input[type="submit"] {
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgb(30, 33, 58, 0.8)
+  background-color: rgb(30, 33, 58, 0.8);
 }
 
 .filter {
@@ -165,8 +164,9 @@ input[type="submit"] {
 }
 
 .curr-weather-icon {
-  max-width: 9.375rem;
-  max-height: 10.875rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .temp-value {
@@ -177,7 +177,6 @@ input[type="submit"] {
   line-height: 10.53rem;
   font-weight: var(--fw-medium);
 }
-
 
 .temp-value span {
   font-size: var(--fs-800);
@@ -191,7 +190,7 @@ input[type="submit"] {
   font-weight: var(--fw-semi-bold);
 }
 
-.weather-time>* {
+.weather-time > * {
   font-size: var(--fs-500);
   color: var(--clr-neutral-200);
   margin: 0 0.938rem;
@@ -203,7 +202,7 @@ input[type="submit"] {
 }
 
 .weather-time .day::after {
-  content: '';
+  content: "";
   display: inline-block;
   height: 4px;
   width: 4px;
@@ -255,7 +254,6 @@ input[type="submit"] {
   justify-content: center;
   border-radius: 50%;
   cursor: pointer;
-
 }
 
 .detailed-weather-content {
@@ -269,27 +267,26 @@ input[type="submit"] {
   gap: 1.625rem;
   padding: 2.5rem;
   padding-bottom: 3.125rem;
-
 }
-
 
 .single-day {
   background-color: var(--clr-primary-800);
-  padding: 1.125rem 1.375rem;
+  padding: 1.125rem 1.25rem;
   text-align: center;
-  max-width: 7.5rem;
-
+  width: 7.5rem;
 }
 
 .single-day span {
   font-size: var(--fs-400);
   font-weight: var(--fw-medium);
-  color: var(--clr-neutral-100);
   line-height: 1.174rem;
+}
+.single-day span:nth-child(1) {
+  color: var(--clr-neutral-100);
 }
 
 .single-day__icon {
-  max-height: 3.875rem;
+  /* max-height: 3.875rem; */
   margin: auto;
   margin: 0.625rem auto 1.938rem;
 }
@@ -321,8 +318,8 @@ input[type="submit"] {
 .box {
   background-color: var(--clr-primary-800);
   min-height: 12.75rem;
-  max-width: 20.5rem;
-  width: 100%;
+  min-width: 20.5rem;
+  flex-grow: 1;
   padding: 1.375rem 0;
   text-align: center;
 }
@@ -392,36 +389,33 @@ footer {
   bottom: 1.5rem;
 }
 
-.bar-parent{
+.bar-parent {
   height: 8px;
-  width:229px;
+  width: 229px;
   background: var(--clr-neutral-100);
   border-radius: 5rem;
-  margin:2rem auto 0;
+  margin: 2rem auto 0;
   position: relative;
 }
-.bar-marker{
+.bar-marker {
   font-size: var(--fs-250);
-  color:var(--clr-neutral-200);
-  font-weight:var(--fw-bold);
+  color: var(--clr-neutral-200);
+  font-weight: var(--fw-bold);
   position: absolute;
-  top:-20px;
+  top: -20px;
 }
-.bar-marker:first-child{
-  
-  left:0;
+.bar-marker:first-child {
+  left: 0;
 }
-.bar-marker:nth-child(2){
-  
-  left:50%;
+.bar-marker:nth-child(2) {
+  left: 50%;
   transform: translateX(-50%);
 }
-.bar-marker:nth-child(3){
-  
-  right:0;
+.bar-marker:nth-child(3) {
+  right: 0;
 }
-.bar-inner{
-  background-color: #FFEC65;
+.bar-inner {
+  background-color: #ffec65;
   display: inline-block;
   height: inherit;
   border-radius: inherit;
@@ -431,7 +425,7 @@ footer {
 /* Media Queries */
 /* ================== */
 
-@media (min-width:80em) {
+@media (min-width: 80em) {
   main {
     display: flex;
   }

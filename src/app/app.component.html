@@ -1,3 +1,6 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
 <main *ngIf="tempData">
   <nav class="nav" [class.show]="showSearchMenu">
     <i class="fa fa-times text-neutral-100 close-btn" aria-hidden="true" (click)="showSearchMenu = false"></i>
@@ -31,19 +34,21 @@
       </a>
     </div>
     <div class="today-weather-stats flex flex-column ai-c">
-      <img src="{{currTempImage}}" class="curr-weather-icon" />
+      <div style="width:202px;height:234px;">
+        <img src="{{currTempImage}}" class="curr-weather-icon" />
+      </div>
       <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'f'">
-        {{kelvinToFahren(tempData.main.temp)}}<span>°F</span> </h1>
+        {{kelvinToFahren(fiveDaysWeatherOnly[0]?.main.temp)}}<span>°F</span> </h1>
       <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'c'">
-        {{kelvinToCels(tempData.main.temp)}}<span>°C</span> </h1>
-      <p class="weather-name my-15 my-md-80">{{currTempName}}</p>
+        {{kelvinToCels(fiveDaysWeatherOnly[0]?.main.temp)}}<span>°C</span> </h1>
+      <p class="weather-name my-15 my-md-80">{{(fiveDaysWeatherOnly[0]?.weather[0]?.main)}}</p>
       <div class="weather-time flex jc-sb ai-c my-30">
         <span class="day">Today</span>
-        <span class="date">{{dateInfo[0].day}}, {{dateInfo[0].date}} {{dateInfo[0].month}}</span>
+        <span class="date">{{dateInfo[0]}}, {{dateInfo[1]}} {{dateInfo[2]}}</span>
       </div>
       <p class="location__name">
         <i class="fa fa-map-marker text-neutral-200" aria-hidden="true"></i>
-        {{tempData.name}}
+        {{tempData.city.name}}
       </p>
     </div>
   </article>
@@ -59,44 +64,16 @@
         </button>
       </div>
       <div class="future-weather">
-        <div class="single-day">
-          <span>Tomorrow</span>
-          <img src="assets/img/LightCloud.png" class="single-day__icon">
+        <div class="single-day" *ngFor="let temp of fiveDaysWeatherOnly;let i = index">
+          <span *ngIf="i == 0">Today</span>
+          <!-- <h1>{{'str'.replace(/(,[^,]*),/g,"$1 ")}}</h1> -->
+          <span *ngIf="i > 0">{{formatRes(getDateInfo(temp?.dt))}}</span>
+          <img src={{getCurrTempImg(temp.weather[0].icon)}} class="single-day__icon">
           <div class="single-day__temp">
-            <span>16°C</span>
-            <span>11°C</span>
-          </div>
-        </div>
-        <div class="single-day">
-          <span>Tomorrow</span>
-          <img src="assets/img/LightCloud.png" class="single-day__icon">
-          <div class="single-day__temp">
-            <span>16°C</span>
-            <span>11°C</span>
-          </div>
-        </div>
-        <div class="single-day">
-          <span>Tomorrow</span>
-          <img src="assets/img/LightCloud.png" class="single-day__icon">
-          <div class="single-day__temp">
-            <span>16°C</span>
-            <span>11°C</span>
-          </div>
-        </div>
-        <div class="single-day">
-          <span>Tomorrow</span>
-          <img src="assets/img/LightCloud.png" class="single-day__icon">
-          <div class="single-day__temp">
-            <span>16°C</span>
-            <span>11°C</span>
-          </div>
-        </div>
-        <div class="single-day">
-          <span>Tomorrow</span>
-          <img src="assets/img/LightCloud.png" class="single-day__icon">
-          <div class="single-day__temp">
-            <span>16°C</span>
-            <span>11°C</span>
+            <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_max)}}°C</span>
+            <span class="text-neutral-100" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_max)}}°F</span>
+            <span class="text-neutral-200" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_min)}}°C</span>
+            <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_min)}}°F</span>
           </div>
         </div>
       </div>
@@ -107,19 +84,19 @@
         <div class="box-wrapper">
           <div class="box">
             <span class="box-text">Wind status</span>
-            <span class="box-number"> <b>{{tempData?.wind?.speed | number: '1.0-0'}}</b> mph</span>
+            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.temp | number: '1.0-0'}}</b> mph</span>
             <span class="box-icon">
               <i class="fa fa-location-arrow text-neutral-100" aria-hidden="true"></i>
             </span>
           </div>
           <div class="box">
             <span class="box-text">Humidity</span>
-            <span class="box-number"> <b>{{tempData?.main?.humidity}}</b> %</span>
+            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0].main.humidity}}</b> %</span>
             <div class="bar-parent">
               <span class="bar-marker">0</span>
               <span class="bar-marker">50</span>
               <span class="bar-marker">100</span>
-              <span class="bar-inner" [style.width.%]="tempData?.main?.humidity"></span>
+              <span class="bar-inner" [style.width.%]="fiveDaysWeatherOnly[0].main.humidity"></span>
             </div>
           </div>
           <div class="box has-icon">
@@ -128,7 +105,7 @@
           </div>
           <div class="box has-icon">
             <span class="box-text">Air Pressure</span>
-            <span class="box-number"> <b>{{tempData?.main?.pressure}}</b> mb</span>
+            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0].main.pressure}}</b> mb</span>
           </div>
         </div>
       </div>

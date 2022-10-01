@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetTempDataService } from './get-temp-data.service';
 import { WeatherModel } from './models/weather.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,11 @@ import { WeatherModel } from './models/weather.model';
 export class AppComponent implements OnInit {
   title = 'weather-app';
   showSearchMenu = false;
+
+  formatRes(str: any) {
+    let res = str.toString().replace(/(,[^,]*),/g, "$1 ");
+    return res;
+  }
 
   latitude!: number;
   longitude!: number;
@@ -23,12 +29,15 @@ export class AppComponent implements OnInit {
   currTempImage: any;
   currTempName: any;
 
+  fiveDaysWeatherOnly: any = [];
+
   visibility: any;
   dateInfo: any;
 
-  constructor(private backendService: GetTempDataService) { }
+  constructor(private backendService: GetTempDataService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     if (localStorage.getItem('hasAllowed')) {
       this.getData();
     } else {
@@ -36,27 +45,45 @@ export class AppComponent implements OnInit {
         this.getCurrentCoords();
       }, 3000);
     }
-    this.getDateInfo();
+    this.dateInfo = { ...this.getDateInfo() };
   }
 
-  getDateInfo() {
-    const now = new Date();
+  getDateInfo(unixMilSec?: any) {
+    let now;
+    if (typeof (unixMilSec) != 'undefined') {
+      now = new Date(unixMilSec * 1000);
+    }
+    else {
+      now = new Date();
+    }
     let day = now.getDate();
     let weekDay = now.toLocaleDateString('default', { weekday: 'short' })
     let month = now.toLocaleString('default', { month: 'short' });
-    this.dateInfo = [{
-      'day': weekDay,
-      'date': day,
-      'month': month,
-    }]
+    return [weekDay, day, month];
+
   }
 
+  getFiveDaysTempOnly(data: any) {
+    this.fiveDaysWeatherOnly.push(data?.list[0]);
+    let currDay = new Date(data?.list[0]?.dt * 1000).getDay();
+    console.log('current day', currDay);
+    for (let i = 1; i < data?.list?.length; i++) {
+      if (currDay != new Date(data?.list[i]?.dt * 1000).getDay()) {
+        this.fiveDaysWeatherOnly.push(data?.list[i]);
+        currDay = new Date(data?.list[i]?.dt * 1000).getDay();
+      }
+    }
+  }
 
   replaceString(str: string): string {
     const index = 2;
     const replacement = 'd';
     const res = str.substring(0, index) + replacement + str.substring(index + 1);
     return res;
+  }
+
+  getCurrTempImg(icon: any) {
+    return `http://openweathermap.org/img/wn/${icon}@2x.png`;
   }
   getData() {
     this.backendService
@@ -65,12 +92,14 @@ export class AppComponent implements OnInit {
         Number(localStorage.getItem('longitude'))
       )
       .subscribe((data) => {
+        this.getFiveDaysTempOnly(data);
+        this.spinner.hide();
         console.log(data);
         this.tempData = data;
-        let tempImg = this.replaceString(data?.weather[0]?.icon);
-        this.currTempImage = `http://openweathermap.org/img/wn/${tempImg}@2x.png`;
-        this.currTempName = data?.weather[0]?.main;
-        this.visibility = Math.round(data?.visibility * 0.000621371192);
+        let tempImg = this.replaceString(data?.list[0].weather[0]?.icon);
+        this.currTempImage = this.getCurrTempImg(tempImg);
+        // this.currTempName = data?.weather[0]?.main;
+        this.visibility = Math.round(data.list[0]?.visibility * 0.000621371192);
       });
   }
 
@@ -90,12 +119,6 @@ export class AppComponent implements OnInit {
       );
     }
   }
-
-  // celsToFahren(celcius) {
-  //   let cTemp = celcius;
-  //   let cToFhr = (cTemp * 9) / 5 + 32;
-  //   return cToFhr;
-  // }
   kelvinToFahren(kelvin: number): number {
     let kTemp = kelvin;
     let kToFahr = (kTemp - 273.15) * 9 / 5 + 32;

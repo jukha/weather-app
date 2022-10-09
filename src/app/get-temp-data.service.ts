@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { environment2 } from 'src/environments/environment.developer';
 import { WeatherModel } from './models/weather.model';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { WeatherModel } from './models/weather.model';
 })
 export class GetTempDataService {
   private apiUrl = environment.url;
-  private apiKey = environment.API_KEY;
+  private apiKey = environment2.API_KEY;
 
   constructor(private httpObj: HttpClient) {}
 

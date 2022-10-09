@@ -9,11 +9,25 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'weather-app';
   showSearchMenu = false;
 
+  userAddress: string = '';
+  userLatitude: string = '';
+  userLongitude: string = '';
+  searchCity: string = '';
+
+  handleAddressChange(address: any) {
+    console.log('address', address);
+    this.showSearchMenu = false;
+    this.userAddress = address.formatted_address;
+    this.userLatitude = address.geometry.location.lat();
+    this.userLongitude = address.geometry.location.lng();
+    this.fiveDaysWeatherOnly = [];
+    this.getData(this.userLatitude, this.userLongitude);
+  }
+
   formatRes(str: any) {
-    let res = str.toString().replace(/(,[^,]*),/g, "$1 ");
+    let res = str.toString().replace(/(,[^,]*),/g, '$1 ');
     return res;
   }
 
@@ -34,7 +48,10 @@ export class AppComponent implements OnInit {
   visibility: any;
   dateInfo: any;
 
-  constructor(private backendService: GetTempDataService, private spinner: NgxSpinnerService) { }
+  constructor(
+    private backendService: GetTempDataService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     this.spinner.show();
@@ -50,17 +67,15 @@ export class AppComponent implements OnInit {
 
   getDateInfo(unixMilSec?: any) {
     let now;
-    if (typeof (unixMilSec) != 'undefined') {
+    if (typeof unixMilSec != 'undefined') {
       now = new Date(unixMilSec * 1000);
-    }
-    else {
+    } else {
       now = new Date();
     }
     let day = now.getDate();
-    let weekDay = now.toLocaleDateString('default', { weekday: 'short' })
+    let weekDay = now.toLocaleDateString('default', { weekday: 'short' });
     let month = now.toLocaleString('default', { month: 'short' });
     return [weekDay, day, month];
-
   }
 
   getFiveDaysTempOnly(data: any) {
@@ -78,18 +93,19 @@ export class AppComponent implements OnInit {
   replaceString(str: string): string {
     const index = 2;
     const replacement = 'd';
-    const res = str.substring(0, index) + replacement + str.substring(index + 1);
+    const res =
+      str.substring(0, index) + replacement + str.substring(index + 1);
     return res;
   }
 
   getCurrTempImg(icon: any) {
     return `http://openweathermap.org/img/wn/${icon}@2x.png`;
   }
-  getData() {
+  getData(lat?: any, long?: any) {
     this.backendService
       .getData(
-        Number(localStorage.getItem('latitude')),
-        Number(localStorage.getItem('longitude'))
+        Number(lat ? lat : localStorage.getItem('latitude')),
+        Number(long ? long : localStorage.getItem('longitude'))
       )
       .subscribe((data) => {
         this.getFiveDaysTempOnly(data);
@@ -121,7 +137,7 @@ export class AppComponent implements OnInit {
   }
   kelvinToFahren(kelvin: number): number {
     let kTemp = kelvin;
-    let kToFahr = (kTemp - 273.15) * 9 / 5 + 32;
+    let kToFahr = ((kTemp - 273.15) * 9) / 5 + 32;
     return Number(Math.round(kToFahr));
   }
   kelvinToCels(kelvin: number): number {

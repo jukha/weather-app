@@ -7,10 +7,12 @@
     <form class="search-form">
       <div class="form-group position-relative search-box">
         <i class="fa fa-search text-neutral-300" aria-hidden="true"></i>
-        <input type="text" class="form-control" placeholder="search location">
+        <!-- <input type="text" class="form-control"> -->
+        <input ngx-google-places-autocomplete placeholder="search location" [(ngModel)]="searchCity" name="searchBar"
+          (onAddressChange)="handleAddressChange($event)" type="text" class="form-control" />
       </div>
       <div class="form-group">
-        <input type="submit" class="form-control btn" value="Search">
+        <input type="submit" class="form-control btn" value="Search" (click)="handleAddressChange($event)">
       </div>
     </form>
     <div class="suggestions-box">

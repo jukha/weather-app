@@ -1,29 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;0,600;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
-@import '~font-awesome/css/font-awesome.css';
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,500;0,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap");
+@import "~font-awesome/css/font-awesome.css";
 
 :root {
-  --clr-primary-900: #100E1D;
-  --clr-primary-800: #1E213A;
+  --clr-primary-900: #100e1d;
+  --clr-primary-800: #1e213a;
 
-  --clr-accent-500: #3C47E9;
-  --clr-accent-600: #110E3C;
+  --clr-accent-500: #3c47e9;
+  --clr-accent-600: #110e3c;
 
-  --clr-neutral-100: #E7E7EB;
-  --clr-neutral-200: #A09FB1;
-  --clr-neutral-300: #6E707A;
+  --clr-neutral-100: #e7e7eb;
+  --clr-neutral-200: #a09fb1;
+  --clr-neutral-300: #6e707a;
 
-  --ff-primary: 'Raleway', sans-serif;
-  --ff-secondary: 'Montserrat', sans-serif;
+  --ff-primary: "Raleway", sans-serif;
+  --ff-secondary: "Montserrat", sans-serif;
 
   --fw-medium: 500;
   --fw-semi-bold: 600;
   --fw-bold: 700;
 
-
-  --fs-250:0.75rem;
+  --fs-250: 0.75rem;
   --fs-300: 0.875rem;
+  --fs-350: 0.938rem;
   --fs-400: 1rem;
   --fs-500: 1.125rem;
   --fs-600: 1.5rem;
@@ -31,8 +31,6 @@
   --fs-800: 3rem;
   --fs-850: 4rem;
   --fs-900: 9rem;
-
-
 }
 
 body {
@@ -119,7 +117,6 @@ select {
   }
 }
 
-
 /* utility classes */
 
 .text-neutral-100 {
@@ -131,7 +128,7 @@ select {
 }
 
 .text-neutral-300 {
-  color: var(--clr-neutral-300)
+  color: var(--clr-neutral-300);
 }
 
 .text-accent-600 {
@@ -200,8 +197,7 @@ select {
   position: relative;
 }
 
-
-@media (min-width:48em) {
+@media (min-width: 48em) {
   .my-md-80 {
     margin-top: 5rem;
     margin-bottom: 5rem;

@@ -7,24 +7,10 @@
     <form class="search-form">
       <div class="form-group position-relative search-box">
         <i class="fa fa-search text-neutral-300" aria-hidden="true"></i>
-        <!-- <input type="text" class="form-control"> -->
         <input ngx-google-places-autocomplete placeholder="search location" [(ngModel)]="searchCity" name="searchBar"
           (onAddressChange)="handleAddressChange($event)" type="text" class="form-control" />
       </div>
-      <div class="form-group">
-        <input type="submit" class="form-control btn" value="Search" (click)="handleAddressChange($event)">
-      </div>
     </form>
-    <div class="suggestions-box">
-      <div class="suggested-city">
-        London
-        <i class="fa fa-angle-right" aria-hidden="true"></i>
-      </div>
-      <div class="suggested-city">
-        Barcelona
-        <i class="fa fa-angle-right" aria-hidden="true"></i>
-      </div>
-    </div>
   </nav>
   <article class="today-weather-wrapper ">
     <div class="overlay"></div>
@@ -58,10 +44,11 @@
 
     <div class="detailed-weather-content position-relative">
       <div class="convert-temp-btns">
-        <button class="temp-btn bg-neutral-100 text-accent-600" (click)="currTempUnit='c'">
+        <button class="temp-btn " [class.activeTempUnit]="currTempUnit == 'c'"
+          (click)="currTempUnit='c'">
           °C
         </button>
-        <button class="temp-btn bg-neutral-300 text-neutral-100" (click)="currTempUnit='f'">
+        <button class="temp-btn" [class.activeTempUnit]="currTempUnit == 'f'" (click)="currTempUnit='f'">
           °F
         </button>
       </div>
@@ -93,12 +80,12 @@
           </div>
           <div class="box">
             <span class="box-text">Humidity</span>
-            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0].main.humidity}}</b> %</span>
+            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.humidity}}</b> %</span>
             <div class="bar-parent">
               <span class="bar-marker">0</span>
               <span class="bar-marker">50</span>
               <span class="bar-marker">100</span>
-              <span class="bar-inner" [style.width.%]="fiveDaysWeatherOnly[0].main.humidity"></span>
+              <span class="bar-inner" [style.width.%]="fiveDaysWeatherOnly[0]?.main.humidity"></span>
             </div>
           </div>
           <div class="box has-icon">
@@ -107,7 +94,7 @@
           </div>
           <div class="box has-icon">
             <span class="box-text">Air Pressure</span>
-            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0].main.pressure}}</b> mb</span>
+            <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.pressure}}</b> mb</span>
           </div>
         </div>
       </div>

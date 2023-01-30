@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   searchCity: string = '';
 
   handleAddressChange(address: any) {
-    console.log('address', address);
     this.showSearchMenu = false;
     this.userAddress = address.formatted_address;
     this.userLatitude = address.geometry.location.lat();
@@ -81,7 +80,6 @@ export class AppComponent implements OnInit {
   getFiveDaysTempOnly(data: any) {
     this.fiveDaysWeatherOnly.push(data?.list[0]);
     let currDay = new Date(data?.list[0]?.dt * 1000).getDay();
-    console.log('current day', currDay);
     for (let i = 1; i < data?.list?.length; i++) {
       if (currDay != new Date(data?.list[i]?.dt * 1000).getDay()) {
         this.fiveDaysWeatherOnly.push(data?.list[i]);
@@ -99,7 +97,7 @@ export class AppComponent implements OnInit {
   }
 
   getCurrTempImg(icon: any) {
-    return `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    return `http://openweathermap.org/img/wn/${icon}@4x.png`;
   }
   getData(lat?: any, long?: any) {
     this.backendService
@@ -110,7 +108,6 @@ export class AppComponent implements OnInit {
       .subscribe((data) => {
         this.getFiveDaysTempOnly(data);
         this.spinner.hide();
-        console.log(data);
         this.tempData = data;
         let tempImg = this.replaceString(data?.list[0].weather[0]?.icon);
         this.currTempImage = this.getCurrTempImg(tempImg);
@@ -120,7 +117,6 @@ export class AppComponent implements OnInit {
   }
 
   getCurrentCoords() {
-    console.log('hi');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {

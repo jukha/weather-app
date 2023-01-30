@@ -7,6 +7,63 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Raleway:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ================== */
+    /* Places API */
+    /* ================== */
+    .pac-container {
+      width: calc(100% - 24px) !important;
+      max-width: 435px !important;
+      left: 12px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 3.125rem;
+      border: 0;
+      box-shadow: none;
+      background-color: transparent;
+      margin-top: 2.375rem;
+      font-family: 'Raleway';
+      color: #E7E7EB;
+    }
+
+    .pac-item {
+      /* max-width: 420px; */
+      color: inherit;
+      font: inherit;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      padding: 1.375rem 0.75rem;
+      border: 1px solid transparent;
+      transition: border 300ms ease-in-out;
+    }
+
+    .pac-item:hover {
+      border: 1px solid #616475;
+      background-color: transparent;
+    }
+
+    .pac-item-query {
+      color: inherit;
+      font: inherit;
+    }
+
+    .pac-icon {
+      background-image: url('./assets/img/angle-right-solid.svg') !important;
+      margin: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: relative;
+      left: calc(100% - 12px);
+      background-position: center;
+    }
+  </style>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC7uHRP7vGzOM0w3-rHaiATcrPHp6lLAo&libraries=places&language=en">
     </script>

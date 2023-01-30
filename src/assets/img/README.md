@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">{Your project name}</h1>
+<h1 align="center">Weather app</h1>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
@@ -8,11 +8,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://jukha.github.io/weather-app/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://github.com/jukha/weather-app">
       Solution
     </a>
     <span> | </span>
@@ -37,56 +37,77 @@
 
 ## Overview
 
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
 
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
+### Desktop View
 
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
+![screenshot](https://i.imgur.com/OALm3Mu.png)
+
+### Mobile View
+
+![screenshot](https://i.imgur.com/IuJfOxK.png)
+
+
+
+
 
 ### Built With
 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
-- [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Tailwind](https://tailwindcss.com/)
+- [Angular](https://angular.io/)
+- [OpenWeatherAPI](https://openweathermap.org/api)
+- [PlacesAPI](https://developers.google.com/maps/documentation/places/web-service/overview)
 
 ## Features
 
-<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
-This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) was to build an application to complete the given user stories.
+This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/paths/front-end-developer) challenge. The [challenge](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) was to build a weather app using an API.
+
+## User Stories
+ 1. I can see city weather as default, preferably my current location
+ 2. I can search for city
+ 3. I can see weather of today and the next 5 days
+ 4. I can see the date and location of the weather
+ 5. I can see according to image for each type of weather
+ 6. I can see the min and max degree each day
+ 7. I can see wind status and wind direction
+ 8. I can see humidity percentage
+ 9. I can see a visibility indicator
+ 10. I can see the air pressure number
+ 11. I can request my current location weather
+ 12. I can convert temperature in Celcius to Fahrenheit and vice versa
 
 ## How To Use
 
 <!-- Example: -->
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+## Development server
 
-```bash
-# Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-# Install dependencies
-$ npm install
+## Code scaffolding
 
-# Run the app
-$ npm start
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Acknowledgements
+## Build
 
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example: -->
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-- [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
-- [Node.js](https://nodejs.org/)
-- [Marked - a markdown parser](https://github.com/chjj/marked)
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
 
 ## Contact
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+- GitHub [@your-username](https://github.com/jukha)

@@ -11,9 +11,10 @@ import {
   FontAwesomeModule,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
+import { TemperatureComponent } from './components/temperature/temperature.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TemperatureComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

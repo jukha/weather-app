@@ -132,11 +132,13 @@ export class AppComponent implements OnInit {
     }
   }
   kelvinToFahren(kelvin: number): number {
+    console.log("KTF");
     let kTemp = kelvin;
     let kToFahr = ((kTemp - 273.15) * 9) / 5 + 32;
     return Number(Math.round(kToFahr));
   }
   kelvinToCels(kelvin: number): number {
+    console.log("KTC");
     let kTemp = kelvin;
     let kToCels = kTemp - 273.15;
     return Number(Math.round(kToCels));

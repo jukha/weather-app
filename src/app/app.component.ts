@@ -10,25 +10,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class AppComponent implements OnInit {
   showSearchMenu = false;
+  isLoading: boolean = true;
 
   userAddress: string = '';
   userLatitude: string = '';
   userLongitude: string = '';
   searchCity: string = '';
-
-  handleAddressChange(address: any) {
-    this.showSearchMenu = false;
-    this.userAddress = address.formatted_address;
-    this.userLatitude = address.geometry.location.lat();
-    this.userLongitude = address.geometry.location.lng();
-    this.fiveDaysWeatherOnly = [];
-    this.getData(this.userLatitude, this.userLongitude);
-  }
-
-  formatRes(str: any) {
-    let res = str.toString().replace(/(,[^,]*),/g, '$1 ');
-    return res;
-  }
 
   latitude!: number;
   longitude!: number;
@@ -62,6 +49,21 @@ export class AppComponent implements OnInit {
       }, 3000);
     }
     this.dateInfo = { ...this.getDateInfo() };
+  }
+
+  handleAddressChange(address: any) {
+    this.isLoading = true;
+    this.showSearchMenu = false;
+    this.userAddress = address.formatted_address;
+    this.userLatitude = address.geometry.location.lat();
+    this.userLongitude = address.geometry.location.lng();
+    this.fiveDaysWeatherOnly = [];
+    this.getData(this.userLatitude, this.userLongitude);
+  }
+
+  formatRes(str: any) {
+    let res = str.toString().replace(/(,[^,]*),/g, '$1 ');
+    return res;
   }
 
   getDateInfo(unixMilSec?: any) {
@@ -108,6 +110,7 @@ export class AppComponent implements OnInit {
       .subscribe((data) => {
         this.getFiveDaysTempOnly(data);
         this.spinner.hide();
+        this.isLoading = false;
         this.tempData = data;
         let tempImg = this.replaceString(data?.list[0].weather[0]?.icon);
         this.currTempImage = this.getCurrTempImg(tempImg);

@@ -12,9 +12,16 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { TemperatureComponent } from './components/temperature/temperature.component';
+import { KelvinToCelsiusPipe } from 'pipes/kelvin-to-celsius.pipe';
+import { KelvinToFahrenheitPipe } from 'pipes/kelvin-to-fahrenheit.pipe';
 
 @NgModule({
-  declarations: [AppComponent, TemperatureComponent],
+  declarations: [
+    AppComponent,
+    TemperatureComponent,
+    KelvinToCelsiusPipe,
+    KelvinToFahrenheitPipe,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -25,7 +25,12 @@
       <div style="width:202px;height:234px;">
         <img src="{{currTempImage}}" class="curr-weather-icon" />
       </div>
-      <app-temperature [temp]="fiveDaysWeatherOnly[0]?.main.temp" [currTempUnit]="currTempUnit" [isLoading]="!!tempData"></app-temperature>
+      <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'f'">
+        {{fiveDaysWeatherOnly[0]?.main.temp | kelvinToFahrenheit}}<span>°F</span>
+      </h1>
+      <h1 class="temp-value my-15 my-md-80" *ngIf="currTempUnit == 'c'">
+        {{fiveDaysWeatherOnly[0]?.main.temp | kelvinToCelsius}}<span>°C</span>
+      </h1>
       <p class="weather-name my-15 my-md-80">{{(fiveDaysWeatherOnly[0]?.weather[0]?.main)}}</p>
       <div class="weather-time flex jc-sb ai-c my-30">
         <span class="day">Today</span>
@@ -41,8 +46,7 @@
 
     <div class="detailed-weather-content position-relative">
       <div class="convert-temp-btns">
-        <button class="temp-btn " [class.activeTempUnit]="currTempUnit == 'c'"
-          (click)="currTempUnit='c'">
+        <button class="temp-btn " [class.activeTempUnit]="currTempUnit == 'c'" (click)="currTempUnit='c'">
           °C
         </button>
         <button class="temp-btn" [class.activeTempUnit]="currTempUnit == 'f'" (click)="currTempUnit='f'">
@@ -56,10 +60,18 @@
           <span *ngIf="i > 0">{{formatRes(getDateInfo(temp?.dt))}}</span>
           <img src={{getCurrTempImg(temp.weather[0].icon)}} class="single-day__icon">
           <div class="single-day__temp">
-            <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_max)}}°C</span>
+            <!-- <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_max)}}°C</span>
             <span class="text-neutral-100" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_max)}}°F</span>
             <span class="text-neutral-200" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_min)}}°C</span>
-            <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_min)}}°F</span>
+            <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_min)}}°F</span> -->
+            <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{temp?.main?.temp_max | kelvinToCelsius
+              }}°C</span>
+            <span class="text-neutral-100" *ngIf="currTempUnit == 'f'">{{temp?.main?.temp_max |
+              kelvinToFahrenheit}}°F</span>
+            <span class="text-neutral-200" *ngIf="currTempUnit == 'c'">{{temp?.main?.temp_min |
+              kelvinToCelsius}}°C</span>
+            <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{temp?.main?.temp_min |
+              kelvinToFahrenheit}}°F</span>
           </div>
         </div>
       </div>

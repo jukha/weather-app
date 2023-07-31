@@ -171,6 +171,20 @@ input[type="submit"] {
   object-fit: cover;
 }
 
+.temp-value {
+  font-size: var(--fs-900);
+  color: var(--clr-neutral-100);
+  font-family: var(--ff-primary);
+  text-align: center;
+  line-height: 10.53rem;
+  font-weight: var(--fw-medium);
+}
+
+.temp-value span {
+  font-size: var(--fs-800);
+  line-height: 3.522rem;
+  color: var(--clr-neutral-200);
+}
 
 .weather-name {
   font-size: var(--fs-700);

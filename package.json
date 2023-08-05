@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy:gh": "ng build --base-href='https://jukha.github.io/weather-app/' && ngh --dir dist/weather-app"
+    "deploy:gh": "ng build --base-href='https://jukha.github.io/weather-app/' && ngh --dir dist/weather-app/"
   },
   "private": true,
   "dependencies": {

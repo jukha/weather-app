@@ -53,94 +53,98 @@
   </article>
 
   <article class="detailed-weather bg-primary-900">
+    <ng-container *ngIf="locationPermissionError && !tempData; else noPermissionError">
+      <div class="text-neutral-100">
+        <h2>{{locationPermissionError?.message}}</h2>
+        <h3>Please reset the location settings and allow the location.</h3>
+      </div>
 
-    <div class="detailed-weather-content position-relative">
-      <div class="convert-temp-btns">
-        <button class="temp-btn " [class.activeTempUnit]="currTempUnit == 'c'" (click)="currTempUnit='c'">
-          °C
-        </button>
-        <button class="temp-btn" [class.activeTempUnit]="currTempUnit == 'f'" (click)="currTempUnit='f'">
-          °F
-        </button>
-      </div>
-      <div class="future-weather">
-        <div class="single-day" *ngFor="let temp of fiveDaysWeatherOnly;let i = index">
-          <span *ngIf="i == 0">Today</span>
-          <!-- <h1>{{'str'.replace(/(,[^,]*),/g,"$1 ")}}</h1> -->
-          <span *ngIf="i > 0">{{formatRes(getDateInfo(temp?.dt))}}</span>
-          <img src={{getCurrTempImg(temp.weather[0].icon)}} class="single-day__icon">
-          <div class="single-day__temp">
-            <!-- <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_max)}}°C</span>
-            <span class="text-neutral-100" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_max)}}°F</span>
-            <span class="text-neutral-200" *ngIf="currTempUnit == 'c'">{{kelvinToCels(temp?.main?.temp_min)}}°C</span>
-            <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{kelvinToFahren(temp?.main?.temp_min)}}°F</span> -->
-            <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{temp?.main?.temp_max | kelvinToCelsius
-              }}°C</span>
-            <span class="text-neutral-100" *ngIf="currTempUnit == 'f'">{{temp?.main?.temp_max |
-              kelvinToFahrenheit}}°F</span>
-            <span class="text-neutral-200" *ngIf="currTempUnit == 'c'">{{temp?.main?.temp_min |
-              kelvinToCelsius}}°C</span>
-            <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{temp?.main?.temp_min |
-              kelvinToFahrenheit}}°F</span>
-          </div>
+    </ng-container>
+    <ng-template #noPermissionError>
+      <div class="detailed-weather-content position-relative">
+        <div class="convert-temp-btns">
+          <button class="temp-btn " [class.activeTempUnit]="currTempUnit == 'c'" (click)="currTempUnit='c'">
+            °C
+          </button>
+          <button class="temp-btn" [class.activeTempUnit]="currTempUnit == 'f'" (click)="currTempUnit='f'">
+            °F
+          </button>
         </div>
-        <ng-container *ngIf="isLoading">
-          <div *ngFor="let i of [1,2,3,4,5,6]">
-            <div class="skeleton">
-              <div class="line"></div>
-              <div class="circle"></div>
-              <div class="two-lines">
-                <div class="line"></div>
-                <div class="line"></div>
-              </div>
+        <div class="future-weather">
+          <div class="single-day" *ngFor="let temp of fiveDaysWeatherOnly;let i = index">
+            <span *ngIf="i == 0">Today</span>
+
+            <span *ngIf="i > 0">{{formatRes(getDateInfo(temp?.dt))}}</span>
+            <img src={{getCurrTempImg(temp.weather[0].icon)}} class="single-day__icon">
+            <div class="single-day__temp">
+              <span class="text-neutral-100" *ngIf="currTempUnit == 'c'">{{temp?.main?.temp_max | kelvinToCelsius
+                }}°C</span>
+              <span class="text-neutral-100" *ngIf="currTempUnit == 'f'">{{temp?.main?.temp_max |
+                kelvinToFahrenheit}}°F</span>
+              <span class="text-neutral-200" *ngIf="currTempUnit == 'c'">{{temp?.main?.temp_min |
+                kelvinToCelsius}}°C</span>
+              <span class="text-neutral-200" *ngIf="currTempUnit == 'f'">{{temp?.main?.temp_min |
+                kelvinToFahrenheit}}°F</span>
             </div>
           </div>
-        </ng-container>
-      </div>
-      <div class="today-highlights">
-        <h3>
-          Today's Highlights
-        </h3>
-        <div class="box-wrapper">
-          <ng-container *ngIf="!isLoading; else loadingBoxes">
-            <div class="box">
-              <span class="box-text">Wind status</span>
-              <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.temp | number: '1.0-0'}}</b> mph</span>
-              <span class="box-icon">
-                <i class="fa fa-location-arrow text-neutral-100" aria-hidden="true"></i>
-              </span>
-            </div>
-            <div class="box">
-              <span class="box-text">Humidity</span>
-              <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.humidity}}</b> %</span>
-              <div class="bar-parent">
-                <span class="bar-marker">0</span>
-                <span class="bar-marker">50</span>
-                <span class="bar-marker">100</span>
-                <span class="bar-inner" [style.width.%]="fiveDaysWeatherOnly[0]?.main.humidity"></span>
-              </div>
-            </div>
-            <div class="box has-icon">
-              <span class="box-text">Visibility</span>
-              <span class="box-number"> <b>{{visibility}}</b> miles</span>
-            </div>
-            <div class="box has-icon">
-              <span class="box-text">Air Pressure</span>
-              <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.pressure}}</b> mb</span>
-            </div>
-          </ng-container>
-          <ng-template #loadingBoxes>
-            <div style="width:45%" *ngFor="let i of [1,2,3,4]">
-              <div class="skeleton" style="width:100%">
+          <ng-container *ngIf="isLoading">
+            <div *ngFor="let i of [1,2,3,4,5,6]">
+              <div class="skeleton">
                 <div class="line"></div>
                 <div class="circle"></div>
-                <div class="line"></div>
+                <div class="two-lines">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                </div>
               </div>
             </div>
-          </ng-template>
+          </ng-container>
+        </div>
+        <div class="today-highlights">
+          <h3>
+            Today's Highlights
+          </h3>
+          <div class="box-wrapper">
+            <ng-container *ngIf="!isLoading; else loadingBoxes">
+              <div class="box">
+                <span class="box-text">Wind status</span>
+                <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.temp | number: '1.0-0'}}</b> mph</span>
+                <span class="box-icon">
+                  <i class="fa fa-location-arrow text-neutral-100" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="box">
+                <span class="box-text">Humidity</span>
+                <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.humidity}}</b> %</span>
+                <div class="bar-parent">
+                  <span class="bar-marker">0</span>
+                  <span class="bar-marker">50</span>
+                  <span class="bar-marker">100</span>
+                  <span class="bar-inner" [style.width.%]="fiveDaysWeatherOnly[0]?.main.humidity"></span>
+                </div>
+              </div>
+              <div class="box has-icon">
+                <span class="box-text">Visibility</span>
+                <span class="box-number"> <b>{{visibility}}</b> miles</span>
+              </div>
+              <div class="box has-icon">
+                <span class="box-text">Air Pressure</span>
+                <span class="box-number"> <b>{{fiveDaysWeatherOnly[0]?.main.pressure}}</b> mb</span>
+              </div>
+            </ng-container>
+            <ng-template #loadingBoxes>
+              <div style="width:45%" *ngFor="let i of [1,2,3,4]">
+                <div class="skeleton" style="width:100%">
+                  <div class="line"></div>
+                  <div class="circle"></div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-template>
     <footer>
       <p class="author">
         created by <a href="https://devchallenges.io/portfolio/jukha">jukha</a>- devChallenges.io

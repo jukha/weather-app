@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   showSearchMenu = false;
   isLoading: boolean = true;
 
+  locationPermissionError: any;
+
   userAddress: string = '';
   userLatitude: string = '';
   userLongitude: string = '';
@@ -41,14 +43,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    if (localStorage.getItem('hasAllowed')) {
-      this.getData();
-    } else {
-      setTimeout(() => {
-        this.getCurrentCoords();
-      }, 3000);
-    }
+    this.checkAdressPermissions();
     this.dateInfo = { ...this.getDateInfo() };
+  }
+
+  checkAdressPermissions() {
+    console.log('locationPermission', this.locationPermissionError);
+
+    if (localStorage.getItem('hasAllowed')) this.getData();
+    else if (!this.locationPermissionError) this.getCurrentCoords();
+    else this.spinner.hide();
   }
 
   handleAddressChange(address: any) {
@@ -114,7 +118,6 @@ export class AppComponent implements OnInit {
         this.tempData = data;
         let tempImg = this.replaceString(data?.list[0].weather[0]?.icon);
         this.currTempImage = this.getCurrTempImg(tempImg);
-        // this.currTempName = data?.weather[0]?.main;
         this.visibility = Math.round(data.list[0]?.visibility * 0.000621371192);
       });
   }
@@ -129,21 +132,14 @@ export class AppComponent implements OnInit {
           this.longitude = position.coords.longitude;
           localStorage.setItem('latitude', this.latitude.toString());
           localStorage.setItem('longitude', this.longitude.toString());
+          this.checkAdressPermissions();
         },
-        (error) => console.log(error)
+        (error) => {
+          console.log(error);
+          this.locationPermissionError = error;
+          this.checkAdressPermissions();
+        }
       );
     }
-  }
-  kelvinToFahren(kelvin: number): number {
-    console.log('KTF');
-    let kTemp = kelvin;
-    let kToFahr = ((kTemp - 273.15) * 9) / 5 + 32;
-    return Number(Math.round(kToFahr));
-  }
-  kelvinToCels(kelvin: number): number {
-    console.log('KTC');
-    let kTemp = kelvin;
-    let kToCels = kTemp - 273.15;
-    return Number(Math.round(kToCels));
   }
 }

@@ -17,9 +17,9 @@
     <div class="filter flex jc-sb ai-c">
       <a class="search-btn bg-neutral-300 text-neutral-100 cp" (click)="showSearchMenu = true">Seach for
         places</a>
-      <a href="javascript:void(0)" class="location-marker" (click)="getCurrentCoords()">
+      <!-- <a href="javascript:void(0)" class="location-marker" (click)="getCurrentCoords()">
         <i class="fa fa-compass text-neutral-100" aria-hidden="true"></i>
-      </a>
+      </a> -->
     </div>
     <div class="today-weather-stats flex flex-column ai-c">
       <ng-container *ngIf="!isLoading; else loading">

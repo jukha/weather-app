@@ -123,6 +123,8 @@ export class AppComponent implements OnInit {
   }
 
   getCurrentCoords() {
+    console.log('getcoord');
+    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
